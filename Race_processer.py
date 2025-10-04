@@ -4,7 +4,7 @@ import numpy as np
 from scipy.stats import norm
 
 # Load the .xlsx file without headers (since there are no column labels)
-file_path = r"C:/Users/schae/Documents/Purdue_Solar_Racing/Calculation_Tool/1_Purdue.xlsx"
+file_path = r"./1_Purdue.xlsx"
 
 # Reading the .xlsx file without headers, setting header=None to treat first row as data
 df = pd.read_excel(file_path, header=None)

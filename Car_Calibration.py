@@ -21,12 +21,12 @@ def main():
         rotational_energy.append(0.5 * ((3 * wheel_weight * (wheel_dia / 2)**2) + (motor_weight * (motor_dia / 2)**2)) * rpm_required ** 2)
         std_kinetic_energy.append(0.5 * weight * i ** 2)
 
-    sourcefile = open(r"C:\Users\schae\Documents\Purdue_Solar_Racing\Calculation_Tool\rotational_energy.txt", 'w')
+    sourcefile = open(r"./rotational_energy.txt", 'w')
     for i in range(0, 4400, 1):
         print(rotational_energy[i], file = sourcefile)
     sourcefile.close()
 
-    sourcefile = open(r"C:\Users\schae\Documents\Purdue_Solar_Racing\Calculation_Tool\kinetic_energy.txt", 'w')
+    sourcefile = open(r"./kinetic_energy.txt", 'w')
     for i in range(0, 4400, 1):
         print(std_kinetic_energy[i], file = sourcefile)
     sourcefile.close()

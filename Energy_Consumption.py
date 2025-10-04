@@ -32,7 +32,7 @@ wheel_circ = PI * WHEELDIA
 rolling_resistance = ROLL_RESIST_COEF * WEIGHT * GRAVITY #Newtons
 
 #------Read In Files------#
-map_data = np.genfromtxt(r"C:\Users\schae\Documents\Purdue_Solar_Racing\Calculation_Tool\Coords2.txt", dtype=float, encoding=None)
+map_data = np.genfromtxt(r"./Coords2.txt", dtype=float, encoding=None)
 
 #------ Barametric Formula------#
 def find_pressure(elevation, temp):

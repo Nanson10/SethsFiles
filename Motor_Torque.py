@@ -48,7 +48,7 @@ ESTIMATED_BOARDS_POWER = RADIOS + DISPLAYS + RAS_PI + PERFERIAL + LIGHTS + CAMER
 #Y = (-1 * x**6) + (0.0023 * x**2) + -1.875 * x + 598.9
 
 #------Read In Files------#
-map_data = np.genfromtxt(r"C:\Users\schae\Documents\Purdue_Solar_Racing\Calculation_Tool\Coords2.txt", dtype=float, encoding=None)
+map_data = np.genfromtxt(r"./Coords2.txt", dtype=float, encoding=None)
 
 #------Power Estimations------#
 watt_hours = battery_volt * battery_cap * battery_count / 1000
@@ -266,7 +266,7 @@ def route_calc(start_pos, end_pos, turns, speed):
     print(str(total_time) + ('Hours'))
     print("")
 
-    sourceFile = r"C:\Users\schae\Documents\Purdue_Solar_Racing\Calculation_Tool\Route1.txt"
+    sourceFile = r"./Route1.txt"
     with open(sourceFile, 'a') as file:
         file.write(str(speed) + '\t' + str(total_energy_lost) + '\t' + str(total_time) + '\n')
 

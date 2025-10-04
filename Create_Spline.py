@@ -7,7 +7,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import scipy.interpolate
 
 # Read data
-file_path = r"C:\Users\schae\Documents\Purdue_Solar_Racing\Calculation_Tool\Coords2.txt"  # Change to your file path
+file_path = r"./Coords2.txt"  # Change to your file path
 data = np.loadtxt(file_path)
 
 lat, lon, elev = data[:, 0], data[:, 1], data[:, 2]
