@@ -1,35 +1,50 @@
+import math
 #Calibration#
 
-pi = 3.1415
-wheel_weight = 4.67
-motor_weight = 10.4
-wheel_dia = .5588
+#Car stats#
+pi = math.pi
+wheel_weight_kilograms = 4.67
+motor_weight_kilograms = 10.4 #Don't know where this goes.
+wheel_diameter_meters = .5588
+total_car_weight_kilograms = 260
+motor_diameter_meters = .262 #Don't know where this goes.
+wheel_inertia = 0.5 * wheel_weight_kilograms * (wheel_diameter_meters / 2) ** 2
 
-weight = 260
+#Data parameters#
+max_meters_per_second = 44 #Runs energy simulation up to {} mps
+change_in_meters_per_second = 0.01 #The change in mps between iterations
 
-motor_dia = .262
 #------ Inverse Energy Function ------#
 #Fuck the real math
-def main():
-    rotational_energy = []
-    std_kinetic_energy = []
 
-    #Range of 4400 = 44m/s, gives accuracy up to 100mph with percision of .01 m/s
-    for i in range(0, 4400, 1):
-        i /= 100
-        rpm_required = i / (2 * pi * (wheel_dia / 2))
-        rotational_energy.append(0.5 * ((3 * wheel_weight * (wheel_dia / 2)**2) + (motor_weight * (motor_dia / 2)**2)) * rpm_required ** 2)
-        std_kinetic_energy.append(0.5 * weight * i ** 2)
+#Unfucked the real math :)
+def main():
+    wheels_rotational_energy = []
+    total_kinetic_energy = []
+
+    iterations = (int) (max_meters_per_second / change_in_meters_per_second)
+    for i in range(0, iterations, 1):
+        current_meters_per_second = i * change_in_meters_per_second
+        # How fast the wheels need to spin to match car speed
+        revolutions_per_second_of_wheels = current_meters_per_second / (2 * pi * (wheel_diameter_meters / 2))
+        radians_per_second_of_wheels = revolutions_per_second_of_wheels * 2 * pi
+        rotational_energy_of_a_wheel = 0.5 * wheel_inertia * radians_per_second_of_wheels ** 2
+        rotational_energy_of_wheels = rotational_energy_of_a_wheel * 3 #Cause we use 3 wheels
+        
+        wheels_rotational_energy.append(rotational_energy_of_wheels)
+        # Total kinetic energy is the sum of kinetic (translational) energy of the car moving and the rotational energy of the wheels.
+        translational_energy_of_car = 0.5 * total_car_weight_kilograms * current_meters_per_second ** 2
+        total_kinetic_energy.append(translational_energy_of_car + rotational_energy_of_wheels)
 
     sourcefile = open(r"./rotational_energy.txt", 'w')
-    for i in range(0, 4400, 1):
-        print(rotational_energy[i], file = sourcefile)
+    for index in range(0, iterations, 1):
+        print(wheels_rotational_energy[index], file = sourcefile)
     sourcefile.close()
 
     sourcefile = open(r"./kinetic_energy.txt", 'w')
-    for i in range(0, 4400, 1):
-        print(std_kinetic_energy[i], file = sourcefile)
+    for index in range(0, iterations, 1):
+        print(total_kinetic_energy[index], file = sourcefile)
     sourcefile.close()
-    print("HI")
+    print("Energies computed")
 
 main()
