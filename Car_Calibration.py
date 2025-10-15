@@ -11,8 +11,8 @@ motor_diameter_meters = .262 # Don't know where this goes.
 wheel_inertia = 0.5 * wheel_weight_kilograms * (wheel_diameter_meters / 2) ** 2
 
 #Data parameters#
-max_meters_per_second = 44 # Runs energy simulation up to {} mps
-change_in_meters_per_second = 0.01 # The change in mps between iterations
+max_meters_per_second = 40 # Runs energy simulation up to {} meters per second
+change_in_meters_per_second = 0.01 # The change in meters per second between iterations
 
 #------ Inverse Energy Function ------#
 #Fuck the real math
@@ -23,8 +23,10 @@ def main():
     total_kinetic_energy = []
 
     iterations = int(max_meters_per_second / change_in_meters_per_second)
-    for i in range(0, iterations, 1):
-        current_meters_per_second = i * change_in_meters_per_second
+    for current_iteration in range(0, iterations, 1):
+        # Converts the current iteration back to a usable speed
+        current_meters_per_second = current_iteration * change_in_meters_per_second
+
         # How fast the wheels need to spin to match car speed
         revolutions_per_second_of_wheels = current_meters_per_second / (pi * wheel_diameter_meters) # rev per second = speed / circumference
         radians_per_second_of_wheels = revolutions_per_second_of_wheels * 2 * pi # There are 2 pi radians per revolution
