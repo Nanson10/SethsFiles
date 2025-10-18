@@ -30,9 +30,11 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
+rangeFromZero = 10
+bin_list = list(range(-rangeFromZero, rangeFromZero + 1))
 
 plt.figure(figsize=(10, 6))
-n, bins, patches = plt.hist(acceleration, bins=200, density=True, alpha=0.6, color='g', label='Acceleration Histogram')
+n, bins, patches = plt.hist(acceleration, bins=bin_list, density=True, alpha=0.6, color='g', label='Acceleration Histogram')
 (mu, sigma) = norm.fit(acceleration)
 y = norm.pdf(bins, mu, sigma)
 plt.plot(bins, y, 'r--', linewidth=2, label=f'Gaussian Fit\n$\\mu={mu:.2f}$, $\\sigma={sigma:.2f}$')
