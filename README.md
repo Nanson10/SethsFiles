@@ -14,3 +14,4 @@ Ensure that you have python3 installed with `python3 --version`
 If python3 was not found, then you'll probably need to search online how to install python.
 `cd` into this directory, you'll be in the right place if you execute `pwd` and see that `SethsFiles` is at the end.
 run `python -m venv .venv && pip install -r requirements.txt && source .venv/bin/activate`
+Now you can run any python file in this repository!
