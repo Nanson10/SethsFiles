@@ -1,10 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy as scipy
-# from scipy.interpolate import *
-# from scipy.integrate import simpson
-from mpl_toolkits.mplot3d import Axes3D
-import scipy.interpolate
+from scipy.interpolate import make_interp_spline
+from scipy.integrate import simpson
 
 # Read data
 file_path = r"./Coords2.txt"  # Change to your file path
@@ -35,8 +32,7 @@ est_arc_len = np.sum(np.linalg.norm(diffs, axis=1))
 
 print(f"{est_arc_len * m_to_miles} miles")
 
-spline, u = scipy.interpolate.splprep()
-raise ValueError
+
 # Parameterization
 t = np.linspace(0, 1, len(lat))
 t_fine = np.linspace(0, 1, 300)  # Fine grid for smoothness
@@ -67,14 +63,30 @@ print(f"Approximate Spline Length: {spline_length:.3f} meters")
 fig = plt.figure(figsize=(10, 6))
 ax = fig.add_subplot(111, projection='3d')
 
-# Scatter original points
-ax.scatter(x_meters[0], y_meters[0], z_meters[0], color='red', label='Original Points')
+# Scatter original points (smaller, slightly transparent)
+ax.scatter(
+	x_meters,
+	y_meters,
+	z_meters,
+	color='red',
+	s=2,               # smaller points
+	alpha=1,        # a bit transparent so the line stands out
+	marker='.',        # compact marker
+	label='Original Points'
+)
 
 # Plot spline curve
 x_smooth = spline_x(t_fine)
 y_smooth = spline_y(t_fine)
 z_smooth = spline_z(t_fine)
-ax.plot(x_smooth, y_smooth, z_smooth, color='blue', label='Spline Curve')
+ax.plot(
+	x_smooth,
+	y_smooth,
+	z_smooth,
+	color='blue',
+	linewidth=5,     # thicker line for visibility
+	label='Spline Curve'
+)
 
 ax.set_xlabel("X (meters)")
 ax.set_ylabel("Y (meters)")
