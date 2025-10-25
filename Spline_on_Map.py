@@ -29,19 +29,19 @@ fig = go.Figure()
 fig.add_trace(go.Scatter3d(
     x=lon, y=lat, z=elev,
     mode='markers',
-    marker=dict(size=5, color='red'),
+    marker=dict(size=1, color='red'),
     name="Original Points"
 ))
 
 # Add spline curve
 fig.add_trace(go.Scatter3d(
-    lon=lon_smooth, lat=lat_smooth, z=elev_smooth,
+    x=lon_smooth, y=lat_smooth, z=elev_smooth,
     mode='lines',
-    line=dict(color='blue', width=3),
+    line=dict(color='blue', width=10),
     name="Spline Curve"
 ))
 
-# Configure Mapbox
+# Configure 3D scene and layout (Mapbox is not supported in 3D scenes)
 fig.update_layout(
     title="3D Spline on Earth",
     margin=dict(l=0, r=0, t=40, b=0),
@@ -49,12 +49,6 @@ fig.update_layout(
         xaxis_title="Longitude",
         yaxis_title="Latitude",
         zaxis_title="Elevation (m)"
-    ),
-    mapbox=dict(
-        style="satellite",
-        center={"lat": lat[0], "lon": lon[0]},
-        zoom=10
     )
 )
-
 fig.show()
